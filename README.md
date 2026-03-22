@@ -1,5 +1,11 @@
 # Two dollar synth (demo app for presentation)
 
+⚡ **Demo app: [atenni.github.io/two-dollar-synth][demo-app]** 🎹
+
+[demo-app]: https://atenni.github.io/two-dollar-synth/
+
+---
+
 A super simple web based synth using the browser native [Web Audio API].
 
 [Web Audio API]: https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
@@ -31,7 +37,7 @@ Shadow DOM), styled with plain CSS to be clean and tactile.
 
 ## Folder / file structure
 
-```
+```shell
 two-dollar-synth/
 ├── index.html               # App shell — registers components, sets page layout
 ├── style.css                # Global resets and layout only (components own their own styles)
