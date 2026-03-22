@@ -64,3 +64,42 @@ two-dollar-synth/
 | `deploy.yml`        | On every push to `main`, copies the repo contents to GitHub Pages using `actions/deploy-pages`. No build step required — the project is plain HTML/CSS/JS.                                       |
 
 ---
+
+## Testing
+
+Tests run with [Vitest] (dev dependency only — the shipped app remains
+dependency-free).
+
+[Vitest]: https://vitest.dev
+
+```bash
+npm install        # installs vitest
+npm test           # run all tests once
+npm run test:watch # watch mode
+```
+
+The `jsdom` environment is used so DOM APIs are available without a real
+browser. The Web Audio API is not implemented in jsdom, so `AudioContext` and
+related nodes are mocked inside each test file.
+
+| Test file                | What it covers                                                                                                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `engine.test.js`         | `noteOn` / `noteOff` create and disconnect the correct node graph; ADSR parameters are applied; duplicate `noteOn` calls for the same frequency are handled safely.         |
+| `synth-keyboard.test.js` | Custom element registers and renders; MIDI-frequency formula (`440 * 2^((n-69)/12)`); pointer/keyboard events dispatch correct `note-on` / `note-off` custom events.        |
+| `synth-controls.test.js` | Custom element registers and renders; waveform selection, ADSR slider changes, and volume input all dispatch `controls-change` with correct payload; values clamp to range. |
+
+---
+
+## Local development
+
+Run the app through a local web server so ES modules load correctly.
+
+```bash
+npm install
+npm run dev
+```
+
+Then open `http://localhost:5173`.
+
+Do not open `index.html` directly via `file://` — custom elements and module
+imports may fail to initialize in that mode.
