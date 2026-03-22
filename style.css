@@ -1,0 +1,153 @@
+/* ============================================================
+   Global resets & tokens
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #1a1714;
+  --bg-panel: #242019;
+  --bg-panel-2: #1e1c17;
+  --accent: #ffcc55;
+  --text: #e8e0d0;
+  --text-dim: rgba(232, 224, 208, 0.5);
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 24px 16px;
+  overflow-x: hidden;
+}
+.runtime-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  text-align: center;
+  background: #5b2100;
+  color: #ffdcb3;
+  border-bottom: 1px solid rgba(255, 220, 179, 0.35);
+}
+
+/* ============================================================
+   App layout
+   ============================================================ */
+
+.app {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- Header ---- */
+
+.app-header {
+  text-align: center;
+  padding: 8px 0 4px;
+}
+
+.app-title {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.app-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---- Panels ---- */
+
+.panel {
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 20px 24px;
+  overflow: hidden;
+}
+
+.keyboard-panel {
+  background: var(--bg-panel-2);
+  padding: 24px 20px 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---- Keyboard scrolling hint for narrow screens ---- */
+
+.keyboard-panel synth-keyboard {
+  width: max-content;
+  margin-inline: auto;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .app {
+    gap: 12px;
+  }
+
+  .panel {
+    padding: 16px 12px;
+  }
+
+  .keyboard-panel {
+    padding: 16px 8px 12px;
+  }
+
+  .keyboard-panel synth-keyboard {
+    margin-inline: 0;
+  }
+}
+
+/* ---- Footer hint ---- */
+
+.hint {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  padding: 4px 0 8px;
+  letter-spacing: 0.03em;
+}
+
+kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.75em;
+  background: rgba(255, 255, 255, 0.07);
+}

@@ -1,0 +1,31 @@
+{
+  "name": "two-dollar-synth",
+  "version": "1.0.0",
+  "description": "A super simple web based synth using the browser native [Web Audio API].",
+  "scripts": {
+    "dev": "python3 -m http.server 5173",
+    "serve": "python3 -m http.server 5173",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atenni/two-dollar-synth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/atenni/two-dollar-synth/issues"
+  },
+  "homepage": "https://github.com/atenni/two-dollar-synth#readme",
+  "devDependencies": {
+    "jsdom": "^29.0.1",
+    "prettier": "^3.8.1",
+    "vitest": "^4.1.0"
+  },
+  "prettier": {
+    "proseWrap": "always"
+  }
+}
