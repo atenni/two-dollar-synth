@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Two Dollar Synth</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <h1 class="app-title">Two Dollar Synth</h1>
+        <p class="app-subtitle">
+          Web Audio API · No libraries · Just the platform
+        </p>
+      </header>
+
+      <section class="panel controls-panel" aria-label="Synthesizer controls">
+        <synth-controls></synth-controls>
+      </section>
+
+      <section class="panel keyboard-panel" aria-label="Piano keyboard">
+        <synth-keyboard></synth-keyboard>
+      </section>
+
+      <footer class="hint">
+        <span
+          >Play with mouse, touch, or keyboard &nbsp;·&nbsp; <kbd>A</kbd>–<kbd
+            >;</kbd
+          >
+          white keys &nbsp;·&nbsp; <kbd>W E T Y U O P</kbd> black keys</span
+        >
+      </footer>
+    </main>
+
+    <script>
+      if (location.protocol === "file:") {
+        const warning = document.createElement("div");
+        warning.className = "runtime-warning";
+        warning.innerHTML =
+          "This app needs a local web server to load ES modules. Run <strong>npm run dev</strong> and open <strong>http://localhost:5173</strong>.";
+        document.body.prepend(warning);
+      }
+    </script>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
