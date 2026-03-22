@@ -1,8 +1,14 @@
-# Two dollar synth (demo app for presentation)
+<h1 align="center">Two dollar synth (demo app for presentation)</h1>
 
-⚡ **Demo app: [atenni.github.io/two-dollar-synth][demo-app]** 🎹
-
-[demo-app]: https://atenni.github.io/two-dollar-synth/
+<p align="center">
+  🎧
+    <b>Demo app: 
+      <a href="https://atenni.github.io/two-dollar-synth/">
+        atenni.github.io/two-dollar-synth
+      </a>
+    </b>
+  🎧
+</p>
 
 ---
 
