@@ -1,10 +1,13 @@
 import { AudioEngine } from "./engine.js";
+import { renderCommitHash } from "./version.js";
 import "./components/synth-keyboard.js";
 import "./components/synth-controls.js";
 
 const engine = new AudioEngine();
 const keyboard = document.querySelector("synth-keyboard");
 const controls = document.querySelector("synth-controls");
+
+renderCommitHash();
 
 // Resume AudioContext on first user gesture (browser autoplay policy)
 const resume = () => {
