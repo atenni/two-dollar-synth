@@ -13,6 +13,9 @@ export class AudioEngine {
   /** @type {GainNode|null} */
   #masterGain = null;
 
+  /** @type {DynamicsCompressorNode|null} */
+  #compressor = null;
+
   /** Map<frequency, { oscillator, gainNode }> */
   #voices = new Map();
 
@@ -35,9 +38,19 @@ export class AudioEngine {
   resume() {
     if (!this.#ctx) {
       this.#ctx = new AudioContext();
+
+      // Peak limiter — prevents clipping when multiple voices sum together.
+      this.#compressor = this.#ctx.createDynamicsCompressor();
+      this.#compressor.threshold.value = -6;
+      this.#compressor.knee.value = 3;
+      this.#compressor.ratio.value = 8;
+      this.#compressor.attack.value = 0.003;
+      this.#compressor.release.value = 0.25;
+
       this.#masterGain = this.#ctx.createGain();
       this.#masterGain.gain.value = this.#volume;
-      this.#masterGain.connect(this.#ctx.destination);
+      this.#masterGain.connect(this.#compressor);
+      this.#compressor.connect(this.#ctx.destination);
     }
     if (this.#ctx.state === "suspended") {
       this.#ctx.resume();

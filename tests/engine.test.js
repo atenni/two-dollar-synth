@@ -31,8 +31,21 @@ function makeOscillator() {
   };
 }
 
+function makeDynamicsCompressor() {
+  return {
+    threshold: { value: 0 },
+    knee: { value: 0 },
+    ratio: { value: 1 },
+    attack: { value: 0 },
+    release: { value: 0 },
+    connect: vi.fn(),
+    disconnect: vi.fn(),
+  };
+}
+
 function makeAudioContext() {
   const gainNode = makeGainNode();
+  const compressor = makeDynamicsCompressor();
   const ctx = {
     state: "running",
     currentTime: 0,
@@ -40,10 +53,12 @@ function makeAudioContext() {
     resume: vi.fn(),
     createGain: vi.fn(() => makeGainNode()),
     createOscillator: vi.fn(() => makeOscillator()),
+    createDynamicsCompressor: vi.fn(() => compressor),
   };
   // First createGain call is the master gain
   ctx.createGain.mockReturnValueOnce(gainNode);
   ctx._masterGain = gainNode;
+  ctx._compressor = compressor;
   return ctx;
 }
 
@@ -69,6 +84,21 @@ afterEach(() => {
 // ---------------------------------------------------------------------------
 
 describe("AudioEngine", () => {
+  describe("resume() — polyphony headroom", () => {
+    it("creates a DynamicsCompressorNode when the context is initialised", () => {
+      const engine = new AudioEngine();
+      engine.resume();
+      expect(mockCtx.createDynamicsCompressor).toHaveBeenCalledOnce();
+    });
+
+    it("connects master gain through the compressor to the destination", () => {
+      const engine = new AudioEngine();
+      engine.resume();
+      expect(mockCtx._masterGain.connect).toHaveBeenCalledWith(mockCtx._compressor);
+      expect(mockCtx._compressor.connect).toHaveBeenCalledWith(mockCtx.destination);
+    });
+  });
+
   describe("resume()", () => {
     it("creates an AudioContext on first call", () => {
       const engine = new AudioEngine();
